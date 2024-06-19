@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="text-center">
+  <div class="todo-list">
+    <h2 class="text-2xl font-bold underline">Todo(s)</h2>
+  </div>
+  
+  <div class="mt-5 pb-8 pt-2 border-2 border-black w-[80%] mx-auto rounded-sm">
+    <p class="font-bold text-xl">Add Todo</p>
+
+    <form class="list">
+      <input id="title" class="px-2 border-2 border-blue-600/40 mb-3 py-2 bg-transparent w-[82%]" type="text" id="title" placeholder="Title" required>
+      <textarea id="desc" class="resize:none w-[82%] h-[130px] border-2 bg-transparent border-blue-600/40 px-2 mx-auto" type="text" id="desc" placeholder="Description" required></textarea>
+      <button type="submit" id="submit" class="bg-blue-600 text-white text-[16px] font-bold py-1 rounded-sm w-[82%]">Add</button>
+    </form>
+  </div>
+  
+  <script src="todo.js"></script>
+</body>
+
+</html>
