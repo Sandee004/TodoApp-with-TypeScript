@@ -1,45 +1,58 @@
-var Todo = /** @class */ (function () {
-    function Todo(title, desc) {
+"use strict";
+class Todo {
+    //desc: string;
+    constructor(title) {
         this.title = title;
-        this.desc = desc;
+        //this.desc = desc;
     }
-    return Todo;
-}());
-var todoList = [];
-var getTitle = document.querySelector("#title");
-var getDesc = document.querySelector("#desc");
-var form = document.querySelector("form");
-form.addEventListener("submit", function (e) {
+}
+const todoList = [];
+const getTitle = document.querySelector("#title");
+//const getDesc = document.querySelector("#desc") as HTMLTextAreaElement;
+const form = document.querySelector("form");
+form.addEventListener("submit", (e) => {
     e.preventDefault();
-    var newEntry = new Todo(getTitle.value, getDesc.value);
+    const newEntry = new Todo(getTitle.value);
     todoList.push(newEntry);
-    var todoDiv = document.createElement("div");
+    const todoListContainer = document.querySelector(".todo-list");
+    const todoDiv = document.createElement("div");
     todoDiv.classList.add("todo-item");
-    var todoTitle = document.createElement("h3");
-    todoTitle.textContent = newEntry.title;
-    console.log(newEntry.title);
-    var todoDesc = document.createElement("p");
-    todoDesc.textContent = newEntry.desc;
-    console.log(newEntry.desc);
-    todoDiv.appendChild(todoTitle);
-    todoDiv.appendChild(todoDesc);
-    var todoListContainer = document.querySelector(".todo-list");
-    todoListContainer.appendChild(todoDiv);
-    todoTitle.value = "";
-    todoDesc.value = "";
-    for (var _i = 0, todoList_1 = todoList; _i < todoList_1.length; _i++) {
-        var todo = todoList_1[_i];
-        console.log("Title:", todo.title, "Description:", todo.desc);
-    }
-    //Stylings
     todoDiv.style.border = "1px solid black";
     todoDiv.style.padding = "10px";
     todoDiv.style.width = "80%";
     todoDiv.style.margin = "auto";
     todoDiv.style.marginBottom = "10px";
     todoDiv.style.borderRadius = "5px";
+    todoDiv.style.display = "flex";
+    todoDiv.style.flexDirection = "row";
+    todoDiv.style.justifyContent = 'center'; // Center horizontally
+    todoDiv.style.alignItems = 'center';
+    todoListContainer.appendChild(todoDiv);
+    const flexGrp = document.createElement("div");
+    flexGrp.style.width = "60%";
+    todoDiv.appendChild(flexGrp);
+    const todoTitle = document.createElement("h3");
+    todoTitle.textContent = newEntry.title;
+    console.log(newEntry.title);
     todoTitle.style.fontSize = "22px";
     todoTitle.style.fontWeight = "bold";
+    flexGrp.appendChild(todoTitle);
+    const todoDesc = document.createElement("p");
+    todoDesc.textContent = newEntry.desc;
+    console.log(newEntry.desc);
     todoDesc.style.fontSize = "16px";
+    todoDesc.style.background = "green";
     todoDesc.style.marginTop = "5px";
+    flexGrp.appendChild(todoDesc);
+    //Create trash icon
+    const trashContainer = document.createElement("div");
+    const trashIcon = document.createElement("i");
+    trashIcon.classList.add("fas", "fa-trash");
+    trashContainer.style.width = "40%";
+    trashIcon.style.color = "red";
+    trashContainer.appendChild(trashIcon);
+    todoDiv.appendChild(trashContainer);
+    for (const todo of todoList) {
+        console.log("Title:", todo.title, "Description:", todo.desc);
+    }
 });
