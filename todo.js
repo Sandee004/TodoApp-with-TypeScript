@@ -1,7 +1,8 @@
 "use strict";
 class Todo {
-    constructor(title) {
+    constructor(title, isComplete) {
         this.title = title;
+        this.isComplete = isComplete;
     }
 }
 const todoList = [];
@@ -9,48 +10,55 @@ const getTitle = document.querySelector("#title");
 const form = document.querySelector("form");
 form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const newEntry = new Todo(getTitle.value);
+    const newEntry = new Todo(getTitle.value, false);
     todoList.push(newEntry);
     const todoListContainer = document.querySelector(".todo-list");
     const todoDiv = document.createElement("div");
-    todoDiv.classList.add("todo-item");
-    todoDiv.style.border = "1px solid black";
-    todoDiv.style.padding = "10px";
-    todoDiv.style.width = "80%";
-    todoDiv.style.margin = "auto";
-    todoDiv.style.marginBottom = "10px";
-    todoDiv.style.borderRadius = "5px";
-    todoDiv.style.display = "flex";
-    todoDiv.style.flexDirection = "row";
-    todoDiv.style.justifyContent = 'center'; // Center horizontally
-    todoDiv.style.alignItems = 'center';
+    todoDiv.classList.add("todo-item", "justify-center", "items-center", "flex", "flex-row", "m-auto", "rounded-sm", "w-[80%]", "p-[10px]", "border-2", "border-black");
     todoListContainer.appendChild(todoDiv);
     const flexGrp = document.createElement("div");
-    flexGrp.style.width = "60%";
+    flexGrp.classList.add("border-r-2", "border-black", "w-[70%]");
     todoDiv.appendChild(flexGrp);
     const todoTitle = document.createElement("h3");
     todoTitle.textContent = newEntry.title;
     console.log(newEntry.title);
-    todoTitle.style.fontSize = "22px";
-    todoTitle.style.fontWeight = "bold";
+    todoTitle.classList.add("text-xl", "font-bold", "text-center");
+    todoTitle.style.maxWidth = "95%";
+    todoTitle.style.overflow = "hidden";
     flexGrp.appendChild(todoTitle);
+    const todoStatus = document.createElement("p");
+    todoStatus.classList.add("text-gray-500", "ml-2");
+    flexGrp.appendChild(todoStatus);
+    if (newEntry.isComplete) {
+        todoStatus.textContent = "Completed";
+    }
+    else {
+        todoStatus.textContent = "Incomplete";
+    }
     //Create trash icon
-    const trashContainer = document.createElement("button");
+    const iconContainer = document.createElement("div");
     const trashIcon = document.createElement("i");
-    trashIcon.classList.add("fas", "fa-trash");
-    trashContainer.style.width = "40%";
-    trashIcon.style.color = "red";
-    trashContainer.appendChild(trashIcon);
-    todoDiv.appendChild(trashContainer);
+    const completeIcon = document.createElement("i");
+    iconContainer.classList.add("w-[30%]", "flex", "justify-center", "items-center", "flex-row", "text-2xl", "gap-4");
+    trashIcon.classList.add("fas", "fa-trash", "text-red-500");
+    completeIcon.classList.add("fas", "fa-square-check", "text-green-500");
+    iconContainer.appendChild(trashIcon);
+    iconContainer.appendChild(completeIcon);
+    todoDiv.appendChild(iconContainer);
+    form.reset();
     for (const todo of todoList) {
         console.log("Title:", todo.title);
     }
-    trashContainer.addEventListener('click', () => {
+    trashIcon.addEventListener("click", () => {
         todoList.forEach((todo, index) => {
             if (todo.title === todoTitle.textContent) {
                 todoList.splice(index, 1);
             }
         });
         todoListContainer.removeChild(todoDiv);
+    });
+    completeIcon.addEventListener("click", () => {
+        todoTitle.style.textDecoration = "line-through";
+        todoStatus.textContent = "Completed";
     });
 });
