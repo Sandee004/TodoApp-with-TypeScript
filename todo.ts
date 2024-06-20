@@ -19,8 +19,7 @@ form.addEventListener("submit", (e: Event) => {
 
     const todoListContainer = document.querySelector(".todo-list")!;
     const todoDiv = document.createElement("div");
-    todoDiv.classList.add("todo-item", "justify-center", "items-center", "flex", "flex-row", "m-auto", "rounded-sm", "w-[80%]", "p-[10px]", "border-2", "border-black");
-    
+    todoDiv.classList.add("todo-item", "justify-center", "items-center", "flex", "flex-row", "mx-auto", "my-4", "rounded-sm", "w-[80%]", "p-[10px]", "border-2", "border-black");
     todoListContainer.appendChild(todoDiv);
 
     const flexGrp = document.createElement("div");
