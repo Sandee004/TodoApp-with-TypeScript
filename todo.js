@@ -1,14 +1,11 @@
 "use strict";
 class Todo {
-    //desc: string;
     constructor(title) {
         this.title = title;
-        //this.desc = desc;
     }
 }
 const todoList = [];
 const getTitle = document.querySelector("#title");
-//const getDesc = document.querySelector("#desc") as HTMLTextAreaElement;
 const form = document.querySelector("form");
 form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -37,15 +34,8 @@ form.addEventListener("submit", (e) => {
     todoTitle.style.fontSize = "22px";
     todoTitle.style.fontWeight = "bold";
     flexGrp.appendChild(todoTitle);
-    const todoDesc = document.createElement("p");
-    todoDesc.textContent = newEntry.desc;
-    console.log(newEntry.desc);
-    todoDesc.style.fontSize = "16px";
-    todoDesc.style.background = "green";
-    todoDesc.style.marginTop = "5px";
-    flexGrp.appendChild(todoDesc);
     //Create trash icon
-    const trashContainer = document.createElement("div");
+    const trashContainer = document.createElement("button");
     const trashIcon = document.createElement("i");
     trashIcon.classList.add("fas", "fa-trash");
     trashContainer.style.width = "40%";
@@ -53,6 +43,14 @@ form.addEventListener("submit", (e) => {
     trashContainer.appendChild(trashIcon);
     todoDiv.appendChild(trashContainer);
     for (const todo of todoList) {
-        console.log("Title:", todo.title, "Description:", todo.desc);
+        console.log("Title:", todo.title);
     }
+    trashContainer.addEventListener('click', () => {
+        todoList.forEach((todo, index) => {
+            if (todo.title === todoTitle.textContent) {
+                todoList.splice(index, 1);
+            }
+        });
+        todoListContainer.removeChild(todoDiv);
+    });
 });

@@ -1,16 +1,13 @@
 class Todo {
     title: string;
-    //desc: string;
 
     constructor(title: string) {
         this.title = title;
-        //this.desc = desc;
     }
 }
 
 const todoList: Todo[] = [];
 const getTitle = document.querySelector("#title") as HTMLInputElement;
-//const getDesc = document.querySelector("#desc") as HTMLTextAreaElement;
 const form = document.querySelector("form") as HTMLFormElement;
 
 form.addEventListener("submit", (e: Event) => {
@@ -44,16 +41,8 @@ form.addEventListener("submit", (e: Event) => {
     todoTitle.style.fontWeight = "bold";
     flexGrp.appendChild(todoTitle);
 
-    const todoDesc = document.createElement("p");
-    todoDesc.textContent = newEntry.desc;
-    console.log(newEntry.desc);
-    todoDesc.style.fontSize = "16px";
-    todoDesc.style.background = "green";
-    todoDesc.style.marginTop = "5px";
-    flexGrp.appendChild(todoDesc);
-
     //Create trash icon
-    const trashContainer = document.createElement("div");
+    const trashContainer = document.createElement("button");
     const trashIcon = document.createElement("i");
     trashIcon.classList.add("fas", "fa-trash");
     trashContainer.style.width = "40%";
@@ -63,6 +52,15 @@ form.addEventListener("submit", (e: Event) => {
     todoDiv.appendChild(trashContainer);
 
     for (const todo of todoList) {
-        console.log("Title:", todo.title, "Description:", todo.desc);
+        console.log("Title:", todo.title);
     }
+
+    trashContainer.addEventListener('click', () => {
+        todoList.forEach((todo, index) => {
+          if (todo.title === todoTitle.textContent) {
+            todoList.splice(index, 1);
+          }
+        });
+        todoListContainer.removeChild(todoDiv);
+    })
 });
